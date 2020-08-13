@@ -10,7 +10,7 @@ const Dashboard: React.FC = () => {
         <div className="container">
             <Sidebar />
 
-            <div id="page-content">
+            <div className="page-content">
                 <header>
                     <h1>Dashboard</h1>
 
