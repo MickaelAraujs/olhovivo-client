@@ -4,9 +4,11 @@
     --color-background: #F6F6F6;
     --color-primary: #120C1B;
     --color-secondary: #0B8AB2;
+    --color-secondary-soft: rgba(16, 148, 188, 0.315);
     --color-text-white: #E3E1E1;
     --color-text-gray: #786F6F;
     --color-text-confirm: #1CA049;
+    --color-card: #FFFFFF;
 }
 
 * {
