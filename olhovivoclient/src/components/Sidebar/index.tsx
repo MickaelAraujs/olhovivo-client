@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-indent */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
     FaInfo,
     FaGripLinesVertical,
@@ -8,6 +9,7 @@ import {
     FaEye,
     FaClock,
 } from 'react-icons/fa';
+
 import logoImg from '../../assets/logo.svg';
 
 import './styles.css';
@@ -15,38 +17,46 @@ import './styles.css';
 const Sidebar: React.FC = () => {
     return (
         <div className="sidebar-container">
-            <img src={logoImg} alt="Olho Vivo - Dashboard" />
+            <Link to="/">
+                <img src={logoImg} alt="Olho Vivo - Dashboard" />
+            </Link>
 
             <nav className="sidebar-items">
                 <ul className="items-list">
                     <li>
                         <FaEye />
-                        <a href="/">Dashboard</a>
+
+                        <Link to="/">Dashboard</Link>
                     </li>
 
                     <li>
                         <FaGripLinesVertical />
-                        <a href="/">Linhas</a>
+
+                        <Link to="/linhas">Linhas</Link>
                     </li>
 
                     <li>
                         <FaBus />
-                        <a href="/">Paradas</a>
+
+                        <Link to="/paradas">Paradas</Link>
                     </li>
 
                     <li>
                         <FaAngleRight />
-                        <a href="/">Corredores</a>
+
+                        <Link to="/corredores">Corredores</Link>
                     </li>
 
                     <li>
                         <FaInfo />
-                        <a href="/">Posição dos veículos</a>
+
+                        <Link to="/posicao">Posição dos veículos</Link>
                     </li>
 
                     <li>
                         <FaClock />
-                        <a href="/">Previsão de chegada</a>
+
+                        <Link to="/previsao">Previsão de chegada</Link>
                     </li>
                 </ul>
             </nav>
