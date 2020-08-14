@@ -1,0 +1,28 @@
+#corridors-page main {
+    margin-top: 6rem;
+    padding-left: 4rem;
+}
+
+#corridors-page main .corridors {
+    display: flex;
+    max-width: 60rem;
+    flex-wrap: wrap;
+}
+
+#corridors-page main .corridors button {
+    border: 0;
+    background: transparent;
+    color: var(--color-primary);
+    cursor: pointer;
+    font-size: 1.6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem;
+
+    transition: color 0.2s;
+}
+
+#corridors-page main .corridors button:hover {
+    color: var(--color-secondary);
+}

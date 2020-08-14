@@ -1,0 +1,17 @@
+.arrive-card .card-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.arrive-card .card-content p {
+    font-size: 1.8rem;
+    margin: 2.6rem 0 2.6rem 1.6rem;
+}
+
+.arrive-card .card-content p span {
+    margin-left: 1.2rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+}

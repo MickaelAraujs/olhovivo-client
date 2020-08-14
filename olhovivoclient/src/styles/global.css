@@ -40,3 +40,93 @@ body {
     height: 100%;
 }
 
+.search fieldset {
+    border: 0;
+    width: 100%;
+    margin-right: 2rem;
+    margin-top: 3.3rem;
+}
+
+.search-routes-result {
+    margin: 3.4rem 0 1.6rem 6rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 94rem;
+}
+
+.search-routes-result .route-card,
+.arrive-card {
+    background-color: var(--color-card);
+    width: 100%;
+    max-width: 45rem;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 0.4rem;
+    padding: 1.4rem;
+    font-family: Archivo, sans-serif;
+    margin-top: 2.6rem;
+    cursor: pointer;
+    transition: background 0.6s;
+}
+
+.search-routes-result .route-card:hover,
+.arrive-card:hover {
+    background-color: var(--color-background);
+}
+
+.search-routes-result .route-card .card-header,
+.arrive-card .card-header {
+    display: flex;
+    margin: 0;
+    padding: 0 0 0.8rem 0;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.1rem solid var(--color-secondary-soft);
+}
+
+.route-card .card-header .card-title,
+.arrive-card .card-header .card-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-left: 1.2rem;
+    color: var(--color-primary);
+}
+
+.route-card .card-header .card-route-info, .card-info {
+    width: 70%;
+}
+
+.route-card .card-header .card-route-info span,
+.arrive-card .card-info-content span {
+    display: block;
+    font-size: 1.2rem;
+    color: var(--color-text-gray);
+}
+
+.route-card .card-header .card-route-info .card-route-info-title,
+.arrive-card .card-info-content h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-primary);
+    font-size: 1.2rem;
+    margin-top: 0.4rem;
+}
+
+.route-card .card-content, .arrive-card .card-content {
+    margin-top: 1.6rem;
+}
+
+.route-card .card-content footer,
+.arrive-card .card-content footer {
+    margin-top: 2.6rem;
+    margin-left: 1.4rem;
+}
+
+.route-card .card-content footer span,
+.arrive-card .card-content footer {
+    font-size: 1.4rem;
+    color: var(--color-text-confirm);
+}
+
