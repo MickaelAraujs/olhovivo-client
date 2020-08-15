@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable react/jsx-indent */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import Sidebar from '../../components/Sidebar';
 import SearchInput from '../../components/SearchInput';
@@ -29,7 +30,7 @@ const BusLocation: React.FC = () => {
     const [busLocations, setBusLocations] = useState<LocationsProps[]>([]);
     const [time, setTime] = useState('');
 
-    async function loadBusLocations() {
+    const loadBusLocations = useCallback(async () => {
         const authResponse = await authenticate();
 
         if (authResponse) {
@@ -61,11 +62,11 @@ const BusLocation: React.FC = () => {
         } else {
             loadBusLocations();
         }
-    }
+    }, []);
 
     useEffect(() => {
         loadBusLocations();
-    }, []);
+    }, [loadBusLocations]);
 
     return (
         <div className="container">
@@ -85,7 +86,7 @@ const BusLocation: React.FC = () => {
                 </header>
 
                 <main>
-                    <Refresh />
+                    <Refresh reference={time} refresh={loadBusLocations} />
 
                     <MapView locations={busLocations} />
                 </main>
