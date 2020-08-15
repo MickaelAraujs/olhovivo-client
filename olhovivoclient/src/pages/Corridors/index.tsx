@@ -1,8 +1,10 @@
 /* eslint-disable react/jsx-indent */
 import React from 'react';
 
-import './styles.css';
 import Sidebar from '../../components/Sidebar';
+import MapView from '../../components/MapView';
+
+import './styles.css';
 
 const Corridors: React.FC = () => {
     return (
@@ -30,6 +32,8 @@ const Corridors: React.FC = () => {
 
                         <button type="button">Paes de Barros</button>
                     </div>
+
+                    <MapView />
                 </main>
             </div>
         </div>

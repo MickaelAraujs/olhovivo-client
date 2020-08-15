@@ -14,3 +14,8 @@
     font-weight: 400;
     color: var(--color-primary);
 }
+
+.dashboard-content {
+    padding-left: 6rem;
+    margin-top: -2rem;
+}

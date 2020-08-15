@@ -1,7 +1,10 @@
+/* eslint-disable react/jsx-indent-props */
 /* eslint-disable react/jsx-indent */
 import React from 'react';
 
 import Sidebar from '../../components/Sidebar';
+import Refresh from '../../components/Refresh';
+import MapView from '../../components/MapView';
 
 import './styles.css';
 
@@ -19,6 +22,12 @@ const Dashboard: React.FC = () => {
                         tempo real.
                     </h2>
                 </header>
+
+                <main className="dashboard-content">
+                    <Refresh />
+
+                    <MapView />
+                </main>
             </div>
         </div>
     );
