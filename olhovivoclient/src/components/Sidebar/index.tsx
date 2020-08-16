@@ -2,7 +2,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-    FaInfo,
     FaGripLinesVertical,
     FaBus,
     FaAngleRight,
@@ -45,12 +44,6 @@ const Sidebar: React.FC = () => {
                         <FaAngleRight />
 
                         <Link to="/corredores">Corredores</Link>
-                    </li>
-
-                    <li>
-                        <FaInfo />
-
-                        <Link to="/posicao">Posição dos veículos</Link>
                     </li>
 
                     <li>

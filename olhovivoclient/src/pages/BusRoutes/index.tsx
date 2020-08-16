@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-indent */
@@ -25,6 +26,7 @@ const BusRoutes: React.FC = () => {
                             name="routes"
                             label="Linhas"
                             placeholder="informe o número ou nome da linha"
+                            searchSubmit={() => {}}
                         />
 
                         <div className="check-box-group">

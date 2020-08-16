@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable react/jsx-indent */
 
@@ -24,6 +25,7 @@ const Arrives: React.FC = () => {
                             label="Ponto de parada"
                             name="arrives-preview"
                             placeholder="informe o nome ou endereço da parada"
+                            searchSubmit={() => {}}
                         />
                     </form>
                 </header>

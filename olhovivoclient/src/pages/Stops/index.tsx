@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable react/jsx-indent */
 
@@ -24,6 +25,7 @@ const Stops: React.FC = () => {
                             label="Parada"
                             name="stops"
                             placeholder="informe o nome ou o endereço da parada"
+                            searchSubmit={() => {}}
                         />
 
                         <div className="check-box-group">

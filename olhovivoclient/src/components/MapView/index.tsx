@@ -11,14 +11,21 @@ import './styles.css';
 
 interface MarkerCoordinates {
     locations?: LocationsProps[];
+    routesLocations?: {
+        latitude: number;
+        longitude: number;
+    }[];
 }
 
-const MapView: React.FC<MarkerCoordinates> = ({ locations }) => {
+const MapView: React.FC<MarkerCoordinates> = ({
+    locations,
+    routesLocations,
+}) => {
     return (
         <div className="map-view">
             <Map
-                center={[-23.6815314, -46.8755]}
-                zoom={10}
+                center={[-23.7129689, -46.691479]}
+                zoom={15}
                 className="leaflet-container"
             >
                 <TileLayer
@@ -37,6 +44,13 @@ const MapView: React.FC<MarkerCoordinates> = ({ locations }) => {
                         />
                     ));
                 })}
+
+                {routesLocations?.map((location, index) => (
+                    <Marker
+                        key={index}
+                        position={[location.latitude, location.longitude]}
+                    />
+                ))}
             </Map>
         </div>
     );

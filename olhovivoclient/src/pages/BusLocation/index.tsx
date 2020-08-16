@@ -28,9 +28,55 @@ export interface LocationsProps {
 
 const BusLocation: React.FC = () => {
     const [busLocations, setBusLocations] = useState<LocationsProps[]>([]);
+    const [busLocationsByRoutes, setBusLocationsByRoutes] = useState([]);
     const [time, setTime] = useState('');
 
+    const [searchInput, setSearchInput] = useState('');
+
+    async function loadBusLocationsByRoutes() {
+        setBusLocations([]);
+
+        const authResponse = await authenticate();
+
+        if (authResponse) {
+            const searchRouteResponse = await api.get(`Linha/Buscar`, {
+                params: {
+                    termosBusca: searchInput,
+                },
+            });
+
+            const routesCodes = searchRouteResponse.data.map(
+                (route: { cl: number }) => route.cl,
+            );
+
+            const code = routesCodes[0];
+
+            const busLocationsResponse = await api.get(`Posicao/Linha`, {
+                params: {
+                    codigoLinha: code,
+                },
+            });
+
+            const { hr, vs: vehicles } = busLocationsResponse.data;
+
+            setTime(hr);
+
+            const vehiclesCoordinates = vehicles.map(
+                (vehicle: VehicleProps) => {
+                    const { py: latitude, px: longitude } = vehicle;
+
+                    return { latitude, longitude };
+                },
+            );
+
+            setBusLocationsByRoutes(vehiclesCoordinates);
+            setSearchInput('');
+        }
+    }
+
     const loadBusLocations = useCallback(async () => {
+        setBusLocationsByRoutes([]);
+
         const authResponse = await authenticate();
 
         if (authResponse) {
@@ -59,8 +105,6 @@ const BusLocation: React.FC = () => {
             );
 
             setBusLocations(locationsCoordinates);
-        } else {
-            loadBusLocations();
         }
     }, []);
 
@@ -81,6 +125,9 @@ const BusLocation: React.FC = () => {
                             name="position"
                             label="Linha"
                             placeholder="Informe o número ou nome da linha"
+                            searchSubmit={loadBusLocationsByRoutes}
+                            value={searchInput}
+                            onChange={e => setSearchInput(e.target.value)}
                         />
                     </form>
                 </header>
@@ -88,7 +135,10 @@ const BusLocation: React.FC = () => {
                 <main>
                     <Refresh reference={time} refresh={loadBusLocations} />
 
-                    <MapView locations={busLocations} />
+                    <MapView
+                        locations={busLocations}
+                        routesLocations={busLocationsByRoutes}
+                    />
                 </main>
             </div>
         </div>

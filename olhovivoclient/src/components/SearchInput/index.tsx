@@ -4,7 +4,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-indent */
 
-import React, { InputHTMLAttributes } from 'react';
+import React, { InputHTMLAttributes, FormEvent } from 'react';
 import { FiSearch } from 'react-icons/fi';
 
 import './styles.css';
@@ -13,14 +13,21 @@ interface SearchInputProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
     name: string;
     placeholder: string;
+    searchSubmit: () => void;
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({
     label,
     name,
     placeholder,
+    searchSubmit,
     ...inputProps
 }) => {
+    function handleSubmit(event: FormEvent) {
+        event.preventDefault();
+        searchSubmit();
+    }
+
     return (
         <div className="search-group">
             <fieldset>
@@ -35,7 +42,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
                 />
             </fieldset>
 
-            <button type="submit">
+            <button type="submit" onClick={handleSubmit}>
                 <FiSearch />
                 Buscar
             </button>
