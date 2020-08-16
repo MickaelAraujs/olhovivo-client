@@ -31,7 +31,7 @@ const Arrives: React.FC = () => {
                 </header>
 
                 <main className="arrive-page-content">
-                    <Refresh />
+                    <Refresh refresh={() => {}} />
 
                     <h2 className="arrive-title">
                         PARADA ROBERTO SELMI DEI B/C

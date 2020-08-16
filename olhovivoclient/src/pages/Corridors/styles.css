@@ -1,5 +1,11 @@
+#corridors-page p {
+    font-size: 1.4rem;
+    color: var(--color-text-gray);
+    margin-top: 2.4rem;
+}
+
 #corridors-page main {
-    margin-top: 6rem;
+    margin-top: 3rem;
     padding-left: 6rem;
 }
 

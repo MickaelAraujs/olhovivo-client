@@ -8,7 +8,7 @@ import './styles.css';
 
 interface RefreshProps {
     reference?: string;
-    refresh?: () => void;
+    refresh: () => void;
 }
 
 const Refresh: React.FC<RefreshProps> = ({ reference, refresh }) => {
