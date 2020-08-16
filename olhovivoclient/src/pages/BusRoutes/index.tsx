@@ -1,9 +1,10 @@
+/* eslint-disable react/jsx-curly-newline */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-indent */
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import Sidebar from '../../components/Sidebar';
 import SearchInput from '../../components/SearchInput';
@@ -11,8 +12,53 @@ import RoutesInfoCard from '../../components/RoutesInfoCard';
 import CheckBox from '../../components/CheckBox';
 
 import './styles.css';
+import authenticate from '../../services/auth';
+import api from '../../services/api';
+import NoSearch from '../../components/NoSearch';
+
+export interface RouteProps {
+    cl: number;
+    lc: boolean;
+    lt: string;
+    sl: number;
+    tl: number;
+    tp: string;
+    ts: string;
+}
 
 const BusRoutes: React.FC = () => {
+    const [busRoutes, setBusRoutes] = useState([]);
+
+    const [searchInput, setSearchInput] = useState('');
+    const [isCheckboxOn, setIsCheckboxOn] = useState(false);
+    const [selectedDirection, setSelectedDirection] = useState('');
+
+    async function handleSearch() {
+        const authResponse = authenticate();
+
+        if (authResponse) {
+            let searchResponse;
+
+            if (!isCheckboxOn) {
+                searchResponse = await api.get(`Linha/Buscar`, {
+                    params: {
+                        termosBusca: searchInput,
+                    },
+                });
+            } else {
+                searchResponse = await api.get(`Linha/BuscarLinhaSentido`, {
+                    params: {
+                        termosBusca: searchInput,
+                        sentido: selectedDirection,
+                    },
+                });
+            }
+
+            setBusRoutes(searchResponse.data);
+            setSearchInput('');
+        }
+    }
+
     return (
         <div className="container">
             <Sidebar />
@@ -26,21 +72,31 @@ const BusRoutes: React.FC = () => {
                             name="routes"
                             label="Linhas"
                             placeholder="informe o número ou nome da linha"
-                            searchSubmit={() => {}}
+                            value={searchInput}
+                            onChange={e => setSearchInput(e.target.value)}
+                            searchSubmit={handleSearch}
                         />
 
                         <div className="check-box-group">
                             <CheckBox
                                 name="w-direction"
                                 label="Buscar linha por sentido"
+                                checked={isCheckboxOn}
+                                onChange={() => setIsCheckboxOn(!isCheckboxOn)}
                             />
 
                             <select
                                 name="select-direction"
                                 id="select-direction"
-                                disabled
+                                disabled={!isCheckboxOn}
+                                value={selectedDirection}
+                                onChange={e =>
+                                    setSelectedDirection(e.target.value)
+                                }
                             >
-                                <option value="">Selecione um sentido</option>
+                                <option value="" defaultChecked disabled hidden>
+                                    Selecione um sentido
+                                </option>
 
                                 <option value="1">
                                     Terminal principal para terminal secundário
@@ -55,11 +111,11 @@ const BusRoutes: React.FC = () => {
                 </header>
 
                 <main className="search-routes-result">
-                    <RoutesInfoCard />
+                    {busRoutes.length === 0 && <NoSearch />}
 
-                    <RoutesInfoCard />
-
-                    <RoutesInfoCard />
+                    {busRoutes.map((route: RouteProps) => (
+                        <RoutesInfoCard key={route.cl} cardData={route} />
+                    ))}
                 </main>
             </div>
         </div>

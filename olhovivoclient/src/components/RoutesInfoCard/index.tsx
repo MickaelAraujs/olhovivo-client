@@ -1,28 +1,35 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-indent */
 
 import React from 'react';
 import { FiArrowRight } from 'react-icons/fi';
 
+import { RouteProps } from '../../pages/BusRoutes';
+
 import './styles.css';
 
-const RoutesInfoCard: React.FC = () => {
+interface RoutesInfoCardProps {
+    cardData: RouteProps;
+}
+
+const RoutesInfoCard: React.FC<RoutesInfoCardProps> = ({ cardData }) => {
     return (
         <div className="route-card">
             <header className="card-header">
                 <h2 className="card-title">
-                    8000
-                    <span className="card-sufix">10</span>
+                    {cardData?.lt}
+                    <span className="card-sufix">{cardData.tl}</span>
                 </h2>
 
                 <div className="card-route-info">
                     <span>sentido:</span>
 
                     <div className="card-route-info-title">
-                        <h3>PÇA. RAMOS DE AZEVEDO</h3>
+                        <h3>{cardData?.tp}</h3>
 
                         <FiArrowRight />
 
-                        <h3>TERM. LAPA</h3>
+                        <h3>{cardData?.ts}</h3>
                     </div>
                 </div>
             </header>
@@ -30,16 +37,16 @@ const RoutesInfoCard: React.FC = () => {
             <main className="card-content">
                 <p>
                     Terminal principal:
-                    <span>PÇA. RAMOS DE AZEVEDO</span>
+                    <span>{cardData?.tp}</span>
                 </p>
 
                 <p>
                     Terminal secundário:
-                    <span>TERM. LAPA</span>
+                    <span>{cardData?.ts}</span>
                 </p>
 
                 <footer>
-                    <span>* opera em modo circular</span>
+                    {cardData?.lc && <span>* opera em modo circular</span>}
                 </footer>
             </main>
         </div>

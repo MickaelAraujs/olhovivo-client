@@ -49,6 +49,7 @@ const BusLocation: React.FC = () => {
                 (route: { cl: number }) => route.cl,
             );
 
+            // pegando apenas o primeiro resultado por enquanto, mudar depois...
             const code = routesCodes[0];
 
             const busLocationsResponse = await api.get(`Posicao/Linha`, {
