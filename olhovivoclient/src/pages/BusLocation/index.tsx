@@ -18,12 +18,14 @@ import './styles.css';
 interface VehicleProps {
     py: number;
     px: number;
+    a: boolean;
 }
 
 export interface LocationsProps {
     coordinates: {
         latitude: number;
         longitude: number;
+        accessible: boolean;
     }[];
 }
 
@@ -98,6 +100,7 @@ const BusLocation: React.FC = () => {
                     const vehiclesCoordinates = foundVehicles.map(
                         (vehicle: VehicleProps) => {
                             return {
+                                accessible: vehicle.a,
                                 latitude: vehicle.py,
                                 longitude: vehicle.px,
                             };
@@ -125,6 +128,11 @@ const BusLocation: React.FC = () => {
             <div className="page-content" id="bus-location-page">
                 <header>
                     <h1>Posição dos veículos</h1>
+
+                    <h2>
+                        Monitore em tempo real a frota de ônibus da cidade de
+                        São Paulo.
+                    </h2>
 
                     <form className="search">
                         <SearchInput

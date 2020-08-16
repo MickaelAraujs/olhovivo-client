@@ -38,10 +38,10 @@ const Corridors: React.FC = () => {
             <div className="page-content" id="corridors-page">
                 <header>
                     <h1>Paradas por corredores</h1>
-                    <p>
+                    <h2>
                         Clique em um dos corredores e localize as paradas
                         relacionadas a ele.
-                    </p>
+                    </h2>
                 </header>
 
                 <main>
