@@ -3,6 +3,7 @@
 /* eslint-disable react/jsx-indent */
 
 import React, { useState, useEffect, useCallback } from 'react';
+import BeatLoader from 'react-spinners/BeatLoader';
 
 import Sidebar from '../../components/Sidebar';
 import SearchInput from '../../components/SearchInput';
@@ -33,6 +34,7 @@ const BusLocation: React.FC = () => {
 
     const [searchInput, setSearchInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingSpinner, setIsLoadingSpinner] = useState(true);
 
     async function loadBusLocationsByRoutes() {
         setBusLocations([]);
@@ -79,6 +81,7 @@ const BusLocation: React.FC = () => {
 
     const loadBusLocations = useCallback(async () => {
         setBusLocationsByRoutes([]);
+        setIsLoadingSpinner(true);
 
         const authResponse = await authenticate();
 
@@ -107,6 +110,7 @@ const BusLocation: React.FC = () => {
 
             setTime(hr);
             setBusLocations(locationsCoordinates);
+            setIsLoadingSpinner(false);
         }
     }, []);
 
@@ -136,12 +140,28 @@ const BusLocation: React.FC = () => {
                 </header>
 
                 <main>
-                    <Refresh reference={time} refresh={loadBusLocations} />
+                    {isLoadingSpinner ? (
+                        <div className="loader">
+                            <BeatLoader
+                                color="#0B8AB2"
+                                margin={2}
+                                size={15}
+                                loading={isLoadingSpinner}
+                            />
+                        </div>
+                    ) : (
+                        <>
+                            <Refresh
+                                reference={time}
+                                refresh={loadBusLocations}
+                            />
 
-                    <MapView
-                        locations={busLocations}
-                        routesLocations={busLocationsByRoutes}
-                    />
+                            <MapView
+                                locations={busLocations}
+                                routesLocations={busLocationsByRoutes}
+                            />
+                        </>
+                    )}
                 </main>
             </div>
         </div>

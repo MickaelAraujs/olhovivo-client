@@ -35,7 +35,7 @@ const MapView: React.FC<MarkerCoordinates> = ({
         <div className="map-view">
             <Map
                 center={[-23.7129689, -46.691479]}
-                zoom={10}
+                zoom={12}
                 className="leaflet-container"
             >
                 <TileLayer
