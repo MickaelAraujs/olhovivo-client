@@ -10,11 +10,12 @@ import Sidebar from '../../components/Sidebar';
 import SearchInput from '../../components/SearchInput';
 import RoutesInfoCard from '../../components/RoutesInfoCard';
 import CheckBox from '../../components/CheckBox';
+import NoSearch from '../../components/NoSearch';
 
-import './styles.css';
 import authenticate from '../../services/auth';
 import api from '../../services/api';
-import NoSearch from '../../components/NoSearch';
+
+import './styles.css';
 
 export interface RouteProps {
     cl: number;
@@ -32,9 +33,12 @@ const BusRoutes: React.FC = () => {
     const [searchInput, setSearchInput] = useState('');
     const [isCheckboxOn, setIsCheckboxOn] = useState(false);
     const [selectedDirection, setSelectedDirection] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     async function handleSearch() {
-        const authResponse = authenticate();
+        setIsLoading(true);
+
+        const authResponse = await authenticate();
 
         if (authResponse) {
             let searchResponse;
@@ -56,6 +60,7 @@ const BusRoutes: React.FC = () => {
 
             setBusRoutes(searchResponse.data);
             setSearchInput('');
+            setIsLoading(false);
         }
     }
 
@@ -75,6 +80,7 @@ const BusRoutes: React.FC = () => {
                             value={searchInput}
                             onChange={e => setSearchInput(e.target.value)}
                             searchSubmit={handleSearch}
+                            buttonText={isLoading ? 'Buscando...' : ''}
                         />
 
                         <div className="check-box-group">

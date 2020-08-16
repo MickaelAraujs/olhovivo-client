@@ -32,9 +32,11 @@ const BusLocation: React.FC = () => {
     const [time, setTime] = useState('');
 
     const [searchInput, setSearchInput] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     async function loadBusLocationsByRoutes() {
         setBusLocations([]);
+        setIsLoading(true);
 
         const authResponse = await authenticate();
 
@@ -60,8 +62,6 @@ const BusLocation: React.FC = () => {
 
             const { hr, vs: vehicles } = busLocationsResponse.data;
 
-            setTime(hr);
-
             const vehiclesCoordinates = vehicles.map(
                 (vehicle: VehicleProps) => {
                     const { py: latitude, px: longitude } = vehicle;
@@ -70,8 +70,10 @@ const BusLocation: React.FC = () => {
                 },
             );
 
+            setTime(hr);
             setBusLocationsByRoutes(vehiclesCoordinates);
             setSearchInput('');
+            setIsLoading(false);
         }
     }
 
@@ -84,8 +86,6 @@ const BusLocation: React.FC = () => {
             const busLocationsResponse = await api.get('Posicao');
 
             const { hr, l: locations } = busLocationsResponse.data;
-
-            setTime(hr);
 
             // extraindo apenas as coordenadas dos dados
             const locationsCoordinates = locations.map(
@@ -105,6 +105,7 @@ const BusLocation: React.FC = () => {
                 },
             );
 
+            setTime(hr);
             setBusLocations(locationsCoordinates);
         }
     }, []);
@@ -126,9 +127,10 @@ const BusLocation: React.FC = () => {
                             name="position"
                             label="Linha"
                             placeholder="Informe o número ou nome da linha"
-                            searchSubmit={loadBusLocationsByRoutes}
                             value={searchInput}
+                            searchSubmit={loadBusLocationsByRoutes}
                             onChange={e => setSearchInput(e.target.value)}
+                            buttonText={isLoading ? 'Buscando...' : ''}
                         />
                     </form>
                 </header>

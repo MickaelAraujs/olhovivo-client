@@ -25,11 +25,23 @@ const RoutesInfoCard: React.FC<RoutesInfoCardProps> = ({ cardData }) => {
                     <span>sentido:</span>
 
                     <div className="card-route-info-title">
-                        <h3>{cardData?.tp}</h3>
+                        {cardData.sl === 1 ? (
+                            <>
+                                <h3>{cardData?.tp}</h3>
 
-                        <FiArrowRight />
+                                <FiArrowRight />
 
-                        <h3>{cardData?.ts}</h3>
+                                <h3>{cardData?.ts}</h3>
+                            </>
+                        ) : (
+                            <>
+                                <h3>{cardData?.ts}</h3>
+
+                                <FiArrowRight />
+
+                                <h3>{cardData?.tp}</h3>
+                            </>
+                        )}
                     </div>
                 </div>
             </header>

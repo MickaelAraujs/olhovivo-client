@@ -14,6 +14,7 @@ interface SearchInputProps extends InputHTMLAttributes<HTMLInputElement> {
     name: string;
     placeholder: string;
     searchSubmit: () => void;
+    buttonText?: string;
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({
@@ -21,6 +22,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
     name,
     placeholder,
     searchSubmit,
+    buttonText,
     ...inputProps
 }) => {
     function handleSubmit(event: FormEvent) {
@@ -43,8 +45,12 @@ const SearchInput: React.FC<SearchInputProps> = ({
             </fieldset>
 
             <button type="submit" onClick={handleSubmit}>
-                <FiSearch />
-                Buscar
+                {buttonText || (
+                    <>
+                        <FiSearch />
+                        Buscar
+                    </>
+                )}
             </button>
         </div>
     );
