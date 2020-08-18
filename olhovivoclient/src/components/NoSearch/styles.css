@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 4rem auto;
+    margin: 12rem auto;
 }
 
 .no-search-made h3 {
@@ -15,4 +15,8 @@
 .no-search-made img {
     max-width: 32rem;
     margin-top: 4rem;
+}
+
+#bus-routes-page main .no-search-made {
+    margin: 4rem auto;
 }
