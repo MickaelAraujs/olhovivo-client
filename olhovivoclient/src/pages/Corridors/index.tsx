@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-curly-newline */
+/* eslint-disable react/jsx-indent-props */
 /* eslint-disable react/jsx-indent */
 import React, { useEffect, useState } from 'react';
 
@@ -16,6 +18,7 @@ interface CorridorProps {
 
 const Corridors: React.FC = () => {
     const [corridors, setCorridors] = useState<CorridorProps[]>([]);
+    const [stopsByCorridors, setStopsByCorridors] = useState([]);
 
     useEffect(() => {
         async function loadCorridors() {
@@ -30,6 +33,23 @@ const Corridors: React.FC = () => {
 
         loadCorridors();
     }, []);
+
+    async function searchStopsByCorridors(stopCode: number) {
+        const authResponse = await authenticate();
+
+        if (authResponse) {
+            const searchResponse = await api.get(
+                'Parada/BuscarParadasPorCorredor',
+                {
+                    params: {
+                        codigoCorredor: stopCode,
+                    },
+                },
+            );
+
+            setStopsByCorridors(searchResponse.data);
+        }
+    }
 
     return (
         <div className="container">
@@ -47,13 +67,19 @@ const Corridors: React.FC = () => {
                 <main>
                     <div className="corridors">
                         {corridors.map(corridor => (
-                            <button type="button" key={corridor.cc}>
+                            <button
+                                type="button"
+                                key={corridor.cc}
+                                onClick={() =>
+                                    searchStopsByCorridors(corridor.cc)
+                                }
+                            >
                                 {corridor.nc}
                             </button>
                         ))}
                     </div>
 
-                    <MapView />
+                    <MapView stops={stopsByCorridors} />
                 </main>
             </div>
         </div>
