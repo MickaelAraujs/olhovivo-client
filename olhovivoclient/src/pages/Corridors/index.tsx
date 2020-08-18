@@ -1,7 +1,9 @@
 /* eslint-disable react/jsx-curly-newline */
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable react/jsx-indent */
+
 import React, { useEffect, useState } from 'react';
+import BeatLoader from 'react-spinners/BeatLoader';
 
 import Sidebar from '../../components/Sidebar';
 import MapView from '../../components/MapView';
@@ -20,6 +22,8 @@ const Corridors: React.FC = () => {
     const [corridors, setCorridors] = useState<CorridorProps[]>([]);
     const [stopsByCorridors, setStopsByCorridors] = useState([]);
 
+    const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
         async function loadCorridors() {
             const authResponse = await authenticate();
@@ -28,6 +32,7 @@ const Corridors: React.FC = () => {
                 const corridorsResponse = await api.get('Corredor');
 
                 setCorridors(corridorsResponse.data);
+                setIsLoading(false);
             }
         }
 
@@ -65,21 +70,34 @@ const Corridors: React.FC = () => {
                 </header>
 
                 <main>
-                    <div className="corridors">
-                        {corridors.map(corridor => (
-                            <button
-                                type="button"
-                                key={corridor.cc}
-                                onClick={() =>
-                                    searchStopsByCorridors(corridor.cc)
-                                }
-                            >
-                                {corridor.nc}
-                            </button>
-                        ))}
-                    </div>
+                    {isLoading ? (
+                        <div className="loader">
+                            <BeatLoader
+                                color="#0B8AB2"
+                                margin={2}
+                                size={15}
+                                loading={isLoading}
+                            />
+                        </div>
+                    ) : (
+                        <>
+                            <div className="corridors">
+                                {corridors.map(corridor => (
+                                    <button
+                                        type="button"
+                                        key={corridor.cc}
+                                        onClick={() =>
+                                            searchStopsByCorridors(corridor.cc)
+                                        }
+                                    >
+                                        {corridor.nc}
+                                    </button>
+                                ))}
+                            </div>
 
-                    <MapView stops={stopsByCorridors} />
+                            <MapView stops={stopsByCorridors} />
+                        </>
+                    )}
                 </main>
             </div>
         </div>
