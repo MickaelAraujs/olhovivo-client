@@ -6,13 +6,13 @@ import React, { useState } from 'react';
 
 import Sidebar from '../../components/Sidebar';
 import SearchInput from '../../components/SearchInput';
-import CheckBox from '../../components/CheckBox';
 import NoSearch from '../../components/NoSearch';
+import MapView from '../../components/MapView';
 
-import './styles.css';
 import authenticate from '../../services/auth';
 import api from '../../services/api';
-import MapView from '../../components/MapView';
+
+import './styles.css';
 
 const Stops: React.FC = () => {
     const [stops, setStops] = useState([]);
@@ -56,13 +56,6 @@ const Stops: React.FC = () => {
                             searchSubmit={handleSearchStops}
                             buttonText={isLoading ? 'Buscando...' : ''}
                         />
-
-                        <div className="check-box-group">
-                            <CheckBox
-                                label="Buscar paradas por linha"
-                                name="w-routes"
-                            />
-                        </div>
                     </form>
                 </header>
 
