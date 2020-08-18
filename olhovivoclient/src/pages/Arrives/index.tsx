@@ -9,11 +9,12 @@ import Sidebar from '../../components/Sidebar';
 import SearchInput from '../../components/SearchInput';
 import Refresh from '../../components/Refresh';
 import ArrivesInfoCard from '../../components/ArrivesInfoCard';
+import NoSearch from '../../components/NoSearch';
 
-import './styles.css';
 import authenticate from '../../services/auth';
 import api from '../../services/api';
-import NoSearch from '../../components/NoSearch';
+
+import './styles.css';
 
 interface StopProps {
     cp: number;

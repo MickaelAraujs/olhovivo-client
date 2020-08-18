@@ -51,16 +51,7 @@ const MapView: React.FC<MarkerCoordinates> = ({
                                 coordinate.longitude,
                             ]}
                             key={index}
-                        >
-                            <Popup>
-                                {coordinate.accessible && (
-                                    <strong>
-                                        * Acessível para pessoas com
-                                        deficiência.
-                                    </strong>
-                                )}
-                            </Popup>
-                        </Marker>
+                        />
                     ));
                 })}
 

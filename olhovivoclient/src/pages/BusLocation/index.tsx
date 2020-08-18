@@ -25,7 +25,20 @@ export interface LocationsProps {
     coordinates: {
         latitude: number;
         longitude: number;
-        accessible: boolean;
+    }[];
+}
+
+interface RouteProps {
+    cl: number;
+}
+
+interface LocationRoutesProps {
+    lt0: string;
+    lt1: string;
+    vs: {
+        a: boolean;
+        py: number;
+        px: number;
     }[];
 }
 
@@ -52,15 +65,14 @@ const BusLocation: React.FC = () => {
             });
 
             const routesCodes = searchRouteResponse.data.map(
-                (route: { cl: number }) => route.cl,
+                (route: RouteProps) => route.cl,
             );
 
-            // pegando apenas o primeiro resultado por enquanto, mudar depois...
-            const code = routesCodes[0];
+            const routeCode = routesCodes[0];
 
             const busLocationsResponse = await api.get(`Posicao/Linha`, {
                 params: {
-                    codigoLinha: code,
+                    codigoLinha: routeCode,
                 },
             });
 
@@ -94,13 +106,12 @@ const BusLocation: React.FC = () => {
 
             // extraindo apenas as coordenadas dos dados
             const locationsCoordinates = locations.map(
-                (location: { vs: [] }) => {
+                (location: LocationRoutesProps) => {
                     const foundVehicles = location.vs;
 
                     const vehiclesCoordinates = foundVehicles.map(
                         (vehicle: VehicleProps) => {
                             return {
-                                accessible: vehicle.a,
                                 latitude: vehicle.py,
                                 longitude: vehicle.px,
                             };
