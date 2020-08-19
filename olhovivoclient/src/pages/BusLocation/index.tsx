@@ -115,6 +115,10 @@ const BusLocation: React.FC = () => {
 
             const { hr, l: routesData } = busLocationsResponse.data;
 
+            if (!hr || !routesData) {
+                return;
+            }
+
             routesData.forEach((route: RoutesDataProps) => {
                 const { vs: vehicles, lt0, lt1 } = route;
 
