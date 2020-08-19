@@ -15,3 +15,30 @@
     font-weight: 700;
     color: var(--color-secondary);
 }
+
+@media (max-width: 875px) {
+    .arrive-card .card-header {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .arrive-card .card-header .card-title {
+        width: 100%;
+        margin-bottom: 1.6rem;
+    }
+
+    .arrive-card .card-header .card-route-info {
+        align-self: flex-start;
+        margin-left: 0.6rem;
+    }
+
+    .arrive-card .card-header .card-title .card-sufix {
+        margin-left: 0.4rem;
+    }
+
+    .arrive-card .card-content p {
+        font-size: 1.2rem;
+        margin-left: 0.4rem;
+    }
+}

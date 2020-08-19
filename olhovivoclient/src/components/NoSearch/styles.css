@@ -20,3 +20,17 @@
 #bus-routes-page main .no-search-made {
     margin: 4rem auto;
 }
+
+@media (max-width: 875px) {
+    #bus-routes-page main .no-search-made {
+        margin: 1.6rem 0 0 4rem;
+    }
+
+    .no-search-made h3 {
+        font-size: 1.2rem;
+    }
+
+    .no-search-made img {
+        max-width: 24rem;
+    }
+}

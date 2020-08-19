@@ -55,3 +55,28 @@
 .search-group button svg {
     margin-right: 0.8rem;
 }
+
+@media (max-width: 875px) {
+    .search-group {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-left: 0.8rem;
+    }
+
+    .search-group fieldset label {
+        font-size: 1.2rem;
+    }
+
+    .search-group fieldset input {
+        font-size: 1.2rem;
+    }
+
+    .search-group button {
+        width: 100%;
+        max-width: 65rem;
+        font-size: 1.4rem;
+        margin-top: 1.6rem;
+        margin-right: 1.8rem;
+    }
+}

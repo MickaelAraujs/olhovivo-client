@@ -37,3 +37,17 @@
 .refresh button svg {
     margin-right: 0.8rem;
 }
+
+@media (max-width: 875px) {
+    .refresh {
+        margin-top: 3rem;
+        margin-left: -3rem;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .refresh button {
+        margin-left: 0rem;
+        margin-top: 1.6rem;
+    }
+}

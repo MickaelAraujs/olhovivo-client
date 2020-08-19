@@ -36,7 +36,6 @@ body {
 
 .page-content header {
     padding: 3.3rem 0 0 6rem;
-
 }
 
 .page-content header h1 {
@@ -152,3 +151,50 @@ body {
     color: var(--color-text-confirm);
 }
 
+@media (max-width: 875px) {
+    .page-content {
+        margin: 0;
+        padding: 0;
+    }
+
+    .page-content header {
+        padding: 0;
+        margin: 0;
+        max-width: 36rem;
+    }
+
+    .page-content header h1 {
+        margin-left: 3rem;
+        margin-top: 6rem;
+        font-size: 1.6rem;
+    }
+
+    .page-content header h2 {
+        margin-top: 0.8rem;
+        margin-left: 3rem;
+        font-size: 1.2rem;
+
+    }
+
+    .search {
+        margin-left: 3rem;
+    }
+
+    .search-routes-result {
+        margin: 3rem 0 2rem 3rem;
+    }
+
+    .search-routes-result .route-card,
+    .arrive-card {
+        max-width: 32rem;
+    }
+
+    .route-card .card-header .card-route-info, .card-info {
+        width: 100%;
+    }
+
+    .route-card .card-content footer,
+    .arrive-card .card-content footer {
+        margin-left: 0.6rem;
+    }
+}

@@ -26,3 +26,23 @@
 #corridors-page main .corridors button:hover {
     color: var(--color-secondary);
 }
+
+@media (max-width: 875px) {
+    #corridors-page main {
+        padding-left: 0;
+    }
+
+    #corridors-page main .corridors {
+        margin-left: 3rem;
+        justify-content: center;
+    }
+
+    #corridors-page main .map-view {
+        margin-left: 3rem;
+    }
+
+    #corridors-page main .loader {
+        margin-left: 16rem;
+        margin-top: 8rem;
+    }
+}
