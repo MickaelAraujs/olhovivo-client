@@ -63,7 +63,7 @@ const Stops: React.FC = () => {
                     {stops.length === 0 ? (
                         <NoSearch />
                     ) : (
-                        <MapView stops={stops} />
+                        <MapView stops={stops} zoom={10} />
                     )}
                 </main>
             </div>

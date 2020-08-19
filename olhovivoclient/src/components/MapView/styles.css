@@ -21,3 +21,33 @@
     font-size: 1.1rem;
     color: var(--color-text-gray);
 }
+
+.locations-pop-up {
+    padding: 0.2rem auto;
+}
+
+.locations-pop-up h3 {
+    font-size: 1.2rem;
+    color: var(--color-text-gray);
+    font-weight: 400;
+    font-family: Poppins, sans-serif;
+    margin-top: 0.4rem;
+    margin-bottom: 0.8rem;
+}
+
+.locations-pop-up h3 span {
+    margin-left: 0.6rem;
+    color: var(--color-secondary);
+    font-weight: 700;
+}
+
+.locations-pop-up #accessible {
+    color: var(--color-text-confirm);
+    margin-top: 0.2rem;
+    font-weight: 700;
+}
+
+.locations-pop-up svg {
+    position: relative;
+    margin-right: 0.2rem;
+}

@@ -95,7 +95,7 @@ const Corridors: React.FC = () => {
                                 ))}
                             </div>
 
-                            <MapView stops={stopsByCorridors} />
+                            <MapView stops={stopsByCorridors} zoom={10} />
                         </>
                     )}
                 </main>

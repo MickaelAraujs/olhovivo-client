@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import { FaAccessibleIcon } from 'react-icons/fa';
 
 import { LocationsProps } from '../../pages/BusLocation';
 
@@ -13,10 +14,7 @@ import './styles.css';
 
 interface MarkerCoordinates {
     locations?: LocationsProps[];
-    routesLocations?: {
-        latitude: number;
-        longitude: number;
-    }[];
+
     stops?: {
         cp: number;
         ed: string;
@@ -24,18 +22,16 @@ interface MarkerCoordinates {
         px: number;
         py: number;
     }[];
+
+    zoom: number;
 }
 
-const MapView: React.FC<MarkerCoordinates> = ({
-    locations,
-    routesLocations,
-    stops,
-}) => {
+const MapView: React.FC<MarkerCoordinates> = ({ locations, stops, zoom }) => {
     return (
         <div className="map-view">
             <Map
                 center={[-23.7129689, -46.691479]}
-                zoom={12}
+                zoom={zoom}
                 className="leaflet-container"
             >
                 <TileLayer
@@ -43,23 +39,36 @@ const MapView: React.FC<MarkerCoordinates> = ({
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
-                {locations?.map(location => {
-                    return location.coordinates.map((coordinate, index) => (
-                        <Marker
-                            position={[
-                                coordinate.latitude,
-                                coordinate.longitude,
-                            ]}
-                            key={index}
-                        />
-                    ));
-                })}
-
-                {routesLocations?.map((location, index) => (
+                {locations?.map((location, index) => (
                     <Marker
                         key={index}
                         position={[location.latitude, location.longitude]}
-                    />
+                    >
+                        <Popup>
+                            <div className="locations-pop-up">
+                                {location.lt0 && (
+                                    <h3>
+                                        Terminal principal:
+                                        <span>{location.lt0}</span>
+                                    </h3>
+                                )}
+
+                                {location.lt1 && (
+                                    <h3>
+                                        Terminal secundário:
+                                        <span>{location.lt1}</span>
+                                    </h3>
+                                )}
+
+                                {location.accessible && (
+                                    <span id="accessible">
+                                        <FaAccessibleIcon />
+                                        Accessível à pessoas com deficiência.
+                                    </span>
+                                )}
+                            </div>
+                        </Popup>
+                    </Marker>
                 ))}
 
                 {stops?.map(stop => (

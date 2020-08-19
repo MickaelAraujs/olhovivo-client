@@ -17,43 +17,48 @@ import './styles.css';
 
 interface VehicleProps {
     py: number;
+
     px: number;
+
     a: boolean;
 }
 
 export interface LocationsProps {
-    coordinates: {
-        latitude: number;
-        longitude: number;
-    }[];
+    latitude: number;
+
+    longitude: number;
+
+    accessible: boolean;
+
+    lt0: string;
+
+    lt1: string;
 }
 
 interface RouteProps {
     cl: number;
 }
 
-interface LocationRoutesProps {
+interface RoutesDataProps {
     lt0: string;
+
     lt1: string;
-    vs: {
-        a: boolean;
-        py: number;
-        px: number;
-    }[];
+
+    vs: VehicleProps[];
 }
 
 const BusLocation: React.FC = () => {
     const [busLocations, setBusLocations] = useState<LocationsProps[]>([]);
-    const [busLocationsByRoutes, setBusLocationsByRoutes] = useState([]);
     const [time, setTime] = useState('');
 
     const [searchInput, setSearchInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [isLoadingSpinner, setIsLoadingSpinner] = useState(true);
+    const [isLoadingSpinner, setIsLoadingSpinner] = useState(false);
 
     async function loadBusLocationsByRoutes() {
         setBusLocations([]);
         setIsLoading(true);
+        setIsLoadingSpinner(true);
 
         const authResponse = await authenticate();
 
@@ -64,37 +69,43 @@ const BusLocation: React.FC = () => {
                 },
             });
 
+            // retornando os códigos de todas as linhas pesquisadas em um array
             const routesCodes = searchRouteResponse.data.map(
                 (route: RouteProps) => route.cl,
             );
 
-            const routeCode = routesCodes[0];
+            routesCodes.forEach(async (routeCode: number) => {
+                const busLocationsResponse = await api.get(`Posicao/Linha`, {
+                    params: {
+                        codigoLinha: routeCode,
+                    },
+                });
 
-            const busLocationsResponse = await api.get(`Posicao/Linha`, {
-                params: {
-                    codigoLinha: routeCode,
-                },
+                const { hr, vs: vehicles } = busLocationsResponse.data;
+
+                if (!hr || !vehicles) {
+                    return;
+                }
+
+                const vehiclesData = vehicles.map((vehicle: VehicleProps) => {
+                    return {
+                        latitude: vehicle.py,
+                        longitude: vehicle.px,
+                        accessible: vehicle.a,
+                    };
+                });
+
+                setBusLocations(locations => [...locations, ...vehiclesData]);
+
+                setTime(hr);
+                setIsLoading(false);
+                setIsLoadingSpinner(false);
             });
-
-            const { hr, vs: vehicles } = busLocationsResponse.data;
-
-            const vehiclesCoordinates = vehicles.map(
-                (vehicle: VehicleProps) => {
-                    const { py: latitude, px: longitude } = vehicle;
-
-                    return { latitude, longitude };
-                },
-            );
-
-            setTime(hr);
-            setBusLocationsByRoutes(vehiclesCoordinates);
-            setSearchInput('');
-            setIsLoading(false);
         }
     }
 
     const loadBusLocations = useCallback(async () => {
-        setBusLocationsByRoutes([]);
+        setBusLocations([]);
         setIsLoadingSpinner(true);
 
         const authResponse = await authenticate();
@@ -102,35 +113,32 @@ const BusLocation: React.FC = () => {
         if (authResponse) {
             const busLocationsResponse = await api.get('Posicao');
 
-            const { hr, l: locations } = busLocationsResponse.data;
+            const { hr, l: routesData } = busLocationsResponse.data;
 
-            // extraindo apenas as coordenadas dos dados
-            const locationsCoordinates = locations.map(
-                (location: LocationRoutesProps) => {
-                    const foundVehicles = location.vs;
+            routesData.forEach((route: RoutesDataProps) => {
+                const { vs: vehicles, lt0, lt1 } = route;
 
-                    const vehiclesCoordinates = foundVehicles.map(
-                        (vehicle: VehicleProps) => {
-                            return {
-                                latitude: vehicle.py,
-                                longitude: vehicle.px,
-                            };
-                        },
-                    );
+                const vehiclesData = vehicles.map(vehicle => {
+                    return {
+                        latitude: vehicle.py,
+                        longitude: vehicle.px,
+                        accessible: vehicle.a,
+                        lt0,
+                        lt1,
+                    };
+                });
 
-                    return { coordinates: vehiclesCoordinates };
-                },
-            );
+                setBusLocations(locations => [...locations, ...vehiclesData]);
+            });
 
             setTime(hr);
-            setBusLocations(locationsCoordinates);
             setIsLoadingSpinner(false);
         }
     }, []);
 
     useEffect(() => {
         loadBusLocations();
-    }, [loadBusLocations]);
+    }, []);
 
     return (
         <div className="container">
@@ -175,10 +183,7 @@ const BusLocation: React.FC = () => {
                                 refresh={loadBusLocations}
                             />
 
-                            <MapView
-                                locations={busLocations}
-                                routesLocations={busLocationsByRoutes}
-                            />
+                            <MapView locations={busLocations} zoom={12} />
                         </>
                     )}
                 </main>
