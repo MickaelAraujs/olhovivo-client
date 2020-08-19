@@ -119,7 +119,12 @@ const BusLocation: React.FC = () => {
                 return;
             }
 
-            routesData.forEach((route: RoutesDataProps) => {
+            routesData.forEach((route: RoutesDataProps, index: number) => {
+                // pra carregar todos os dados remove esse if
+                if (index >= routesData.length / 10) {
+                    return;
+                }
+
                 const { vs: vehicles, lt0, lt1 } = route;
 
                 const vehiclesData = vehicles.map(vehicle => {
@@ -187,7 +192,7 @@ const BusLocation: React.FC = () => {
                                 refresh={loadBusLocations}
                             />
 
-                            <MapView locations={busLocations} zoom={12} />
+                            <MapView locations={busLocations} zoom={15} />
                         </>
                     )}
                 </main>
