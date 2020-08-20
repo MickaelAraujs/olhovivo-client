@@ -6,6 +6,10 @@
     <img src="./src/assets/waiting.svg">
 </p>
 
+# Olho Vivo - Dashboard
+
+Link para o vídeo no youtube: https://youtu.be/te4Zbel8uCQ
+
 Conteúdos
 =================
 <!--ts-->
